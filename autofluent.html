@@ -1,0 +1,248 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="AutoFluent — configuration-driven Python infrastructure for reusable ANSYS Fluent simulation workflows.">
+  <title>AutoFluent | Sailosi Madanawa</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <header class="nav">
+    <a class="logo" href="index.html">SM</a>
+    <nav aria-label="Primary navigation">
+      <a href="index.html#projects">Projects</a>
+      <a href="index.html#research">Research</a>
+      <a href="index.html#about">About</a>
+      <a href="autofluent.html">AutoFluent</a>
+      <a href="https://github.com/lehmoans/manasimulations" target="_blank" rel="noopener">Repository ↗</a>
+    </nav>
+  </header>
+
+  <main>
+    <section class="hero autofluent-hero">
+      <p class="eyebrow">FEATURED SOFTWARE PROJECT</p>
+      <h1>Auto<span>Fluent.</span></h1>
+      <p class="intro">
+        A modular, configuration-driven Python framework for building reusable
+        ANSYS Fluent simulation workflows across local, mock and HPC environments.
+      </p>
+      <div class="actions">
+        <a class="button primary" href="https://github.com/lehmoans/manasimulations" target="_blank" rel="noopener">View repository ↗</a>
+        <a class="button secondary" href="index.html#projects">Back to portfolio</a>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="section-heading">
+        <p class="eyebrow">01 · PURPOSE</p>
+        <h2>Turning a CFD workflow into reusable software.</h2>
+      </div>
+      <div class="doc-grid">
+        <div>
+          <p class="lead">
+            AutoFluent grew from the need to automate repetitive CFD setup and
+            make simulation iteration easier. Instead of encoding one particular
+            geometry or case directly into a script, the framework separates
+            simulation configuration from the code that executes the workflow.
+          </p>
+        </div>
+        <div class="doc-card">
+          <span class="tag">DESIGN GOALS</span>
+          <ul>
+            <li>Reusable across different Fluent designs and cases.</li>
+            <li>Configuration-driven rather than dominated by case-specific conditionals.</li>
+            <li>Separate physical/process configuration from execution-environment configuration.</li>
+            <li>Support real Fluent sessions as well as mock execution for development and testing.</li>
+            <li>Provide a path from local development to HPC execution.</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="section-heading">
+        <p class="eyebrow">02 · ARCHITECTURE</p>
+        <h2>A layered simulation workflow.</h2>
+      </div>
+
+      <div class="architecture">
+        <div class="architecture-node root">
+          <span>ENTRY POINT</span>
+          <strong>Simulation</strong>
+          <p>Coordinates the overall workflow and passes configuration into the simulation components.</p>
+        </div>
+
+        <div class="architecture-branch">
+          <div class="architecture-node">
+            <span>CONFIGURATION</span>
+            <strong>Case</strong>
+            <p>Physical and process settings: geometry, mesh, materials, boundary conditions, solver settings, reports and monitors.</p>
+          </div>
+          <div class="architecture-node">
+            <span>EXECUTION</span>
+            <strong>Environment</strong>
+            <p>Where and how the workflow runs: local machine, M3/HPC or mock environment, including installation and resource settings.</p>
+          </div>
+        </div>
+
+        <div class="architecture-node pipeline">
+          <span>WORKFLOW</span>
+          <strong>Meshing → Solution → Post-processing</strong>
+          <p>Each stage receives the session and relevant configuration rather than owning the entire simulation lifecycle.</p>
+        </div>
+
+        <div class="architecture-branch">
+          <div class="architecture-node">
+            <span>MESHING</span>
+            <strong>Meshing layer</strong>
+            <p>Creates or prepares the computational mesh. A mock implementation allows workflow testing without Fluent installed.</p>
+          </div>
+          <div class="architecture-node">
+            <span>SOLVER</span>
+            <strong>Fluent solver layer</strong>
+            <p>Owns solver setup and execution logic while consuming case and environment configuration.</p>
+          </div>
+          <div class="architecture-node">
+            <span>OUTPUT</span>
+            <strong>Reports & post-processing</strong>
+            <p>Provides a place for monitors, reports, contours and other outputs to be defined from configuration.</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="code-tree">
+        <div class="tree-label">CONCEPTUAL PROJECT STRUCTURE</div>
+<pre>autofluent/
+├── config/
+│   ├── case.yaml
+│   ├── environment.yaml
+│   └── loader/
+├── meshing/
+│   └── mockMesh/
+├── solver/
+│   └── fluent/
+├── solution/
+├── postprocess/
+└── simulation.py
+
+case.yaml          → what is being simulated
+environment.yaml   → where/how it is executed
+simulation.py      → workflow orchestration
+meshing            → mesh preparation
+solver/fluent      → Fluent solver interaction
+solution           → solution setup / execution
+postprocess        → reports, monitors and outputs</pre>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="section-heading">
+        <p class="eyebrow">03 · CONFIGURATION</p>
+        <h2>Case and environment are deliberately separated.</h2>
+      </div>
+
+      <div class="doc-grid">
+        <div class="doc-card">
+          <span class="tag">CASE.YAML</span>
+          <h3>Simulation definition</h3>
+          <p>
+            Describes the model itself: geometry, meshing choices, named zones,
+            materials, boundary conditions, solver settings, reports and monitors.
+            These settings should remain useful when the same case moves between machines.
+          </p>
+        </div>
+        <div class="doc-card">
+          <span class="tag">ENVIRONMENT.YAML</span>
+          <h3>Execution definition</h3>
+          <p>
+            Describes the execution environment: local, M3/HPC or mock operation,
+            ANSYS installation location, available resources and adjustable CPU
+            or memory requirements.
+          </p>
+        </div>
+      </div>
+
+      <div class="config-example">
+<pre><code># case.yaml
+geometry:
+  file: geom.scdC
+
+meshing:
+  enabled: true
+  show_gui: false
+  file: mesh.msh
+
+# environment.yaml
+environment:
+  type: local
+  ansys_root: &lt;ANSYS installation root&gt;
+  cores: &lt;number of cores&gt;
+  memory: &lt;memory allocation&gt;</code></pre>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="section-heading">
+        <p class="eyebrow">04 · USAGE</p>
+        <h2>One workflow, different execution environments.</h2>
+      </div>
+
+      <div class="steps">
+        <article><span>01</span><h3>Define the case</h3><p>Put physical and simulation settings into the case configuration rather than hard-coding them into the workflow.</p></article>
+        <article><span>02</span><h3>Select the environment</h3><p>Choose local, M3/HPC or mock execution and provide the corresponding environment settings.</p></article>
+        <article><span>03</span><h3>Launch</h3><p>The environment is responsible for establishing the execution context and providing the session to downstream components.</p></article>
+        <article><span>04</span><h3>Run the workflow</h3><p>Progress through meshing, solution and post-processing while each component uses the shared configuration and session.</p></article>
+        <article><span>05</span><h3>Validate</h3><p>Use reports, monitors and external reference data to determine whether the numerical result represents the intended physical system.</p></article>
+      </div>
+
+      <div class="project-callout">
+        <div>
+          <span class="eyebrow">SOURCE CODE</span>
+          <h3>lehmoans / manasimulations</h3>
+          <p>
+            The repository contains the evolving implementation. The architecture
+            described here reflects the framework's intended configuration-driven
+            workflow and environment separation.
+          </p>
+        </div>
+        <a class="button primary" href="https://github.com/lehmoans/manasimulations" target="_blank" rel="noopener">Open GitHub ↗</a>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="section-heading">
+        <p class="eyebrow">05 · ENGINEERING DOCUMENTATION</p>
+        <h2>Why the architecture matters.</h2>
+      </div>
+      <div class="doc-grid">
+        <div>
+          <p class="lead">
+            The objective is not simply to automate clicks in Fluent. The larger
+            goal is to create a simulation framework where the model definition,
+            execution environment and workflow stages remain understandable and
+            independently replaceable.
+          </p>
+        </div>
+        <div class="doc-card">
+          <ul>
+            <li><b>Portability:</b> the same case configuration can target different environments.</li>
+            <li><b>Testability:</b> mock execution makes workflow logic testable without a full Fluent installation.</li>
+            <li><b>Maintainability:</b> solver stages remain separated instead of becoming one large procedural script.</li>
+            <li><b>Scalability:</b> execution settings can adapt from local machines to HPC resources.</li>
+            <li><b>Reproducibility:</b> important simulation choices are represented explicitly in configuration.</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <p>© 2026 Sailosi Madanawa</p>
+    <div class="footer-links">
+      <a href="index.html">Portfolio</a>
+      <a href="https://github.com/lehmoans/manasimulations" target="_blank" rel="noopener">AutoFluent ↗</a>
+    </div>
+  </footer>
+</body>
+</html>
