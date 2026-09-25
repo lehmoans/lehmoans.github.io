@@ -44,7 +44,7 @@ a:hover { color: var(--accent); }
 
 .hero {
   max-width: none;
-  min-height: 78vh;
+  min-height: 62vh;
   margin: 0;
   padding: 0;
   position: relative;
@@ -331,6 +331,22 @@ footer {
   border-top: 1px solid var(--line);
 }
 .footer-links { display: flex; gap: 20px; }
+
+.cv-page { max-width: 980px; }
+.cv-title { max-width: 900px; font-size: clamp(46px, 7vw, 76px); line-height: 1.03; letter-spacing: -.055em; }
+.cv-contact { margin-top: 16px; color: var(--muted); font-size: 14px; }
+.cv-section { margin-top: 75px; }
+.cv-entry { padding: 25px 0 30px; border-top: 1px solid var(--line); }
+.cv-meta { display: flex; justify-content: space-between; gap: 20px; color: var(--muted); font: 12px "DM Mono", monospace; }
+.cv-entry h3 { margin-top: 10px; font-size: 21px; line-height: 1.35; }
+.cv-entry p { margin-top: 10px; color: var(--muted); font-size: 14px; }
+.cv-entry ul { margin-top: 14px; color: var(--muted); font-size: 14px; }
+.cv-entry li + li { margin-top: 7px; }
+
+@media (max-width: 700px) {
+  .cv-meta { flex-direction: column; gap: 5px; }
+  .cv-section { margin-top: 55px; }
+}
 
 @media (max-width: 850px) {
   .research-grid { grid-template-columns: 1fr 1fr; }
