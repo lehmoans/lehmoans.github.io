@@ -3,60 +3,302 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="description" content="Sailo Simadanawa — engineering, simulation and numerical modelling portfolio.">
-  <title>Sailo Simadanawa | Simulation & Engineering</title>
+  <meta name="description" content="Sailosi Madanawa — computational fluid dynamics, multiphysics simulation, numerical modelling and simulation automation portfolio.">
+  <meta property="og:title" content="Sailosi Madanawa | Simulation Engineering">
+  <meta property="og:description" content="Portfolio of CFD, FSI, high-Mach simulation and simulation automation projects.">
+  <meta property="og:type" content="website">
+  <title>Sailosi Madanawa | Simulation Engineering</title>
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
   <header class="nav">
-    <a class="logo" href="#">SS</a>
-    <nav>
-      <a href="#work">Work</a>
+    <a class="logo" href="#">SM</a>
+    <nav aria-label="Primary navigation">
+      <a href="#projects">Projects</a>
+      <a href="#research">Research</a>
       <a href="#about">About</a>
+      <a href="autofluent.html">AutoFluent</a>
       <a href="https://github.com/lehmoans" target="_blank" rel="noopener">GitHub ↗</a>
     </nav>
   </header>
 
   <main>
     <section class="hero">
-      <p class="eyebrow">ENGINEERING • SIMULATION • NUMERICAL MODELLING</p>
-      <h1>Building models to understand<br><span>complex systems.</span></h1>
+      <p class="eyebrow">COMPUTATIONAL ENGINEERING • CFD • MULTIPHYSICS</p>
+      <h1>Simulating natural and<br><span>engineered systems.</span></h1>
       <p class="intro">
-        I’m Sailo Simadanawa, an engineering-focused developer interested in
-        computational modelling, fluid mechanics, CFD, FEA and simulation automation.
+        I’m Sailosi Madanawa, an engineering-focused developer interested in
+        computational modelling, fluid mechanics, CFD, multiphysics simulation
+        and tools that make engineering workflows more reproducible.
       </p>
       <div class="actions">
-        <a class="button primary" href="#work">View my work</a>
-        <a class="button secondary" href="https://github.com/lehmoans" target="_blank" rel="noopener">GitHub</a>
+        <a class="button primary" href="#projects">Explore projects</a>
+        <a class="button secondary" href="autofluent.html">AutoFluent ↗</a>
       </div>
     </section>
 
-    <section id="work" class="section">
+    <section id="projects" class="section">
       <div class="section-heading">
-        <p class="eyebrow">SELECTED WORK</p>
-        <h2>Projects</h2>
+        <p class="eyebrow">PROJECT PORTFOLIO</p>
+        <h2>Simulation work</h2>
+        <p class="section-lead">
+          The projects below document work in CFD, FSI, high-speed flow and
+          simulation automation. Expand each project to see the technical details.
+        </p>
       </div>
 
-      <div class="projects">
-        <article class="card">
-          <div class="number">01</div>
-          <h3>AutoFluent</h3>
-          <p>A modular Python framework for configuring, automating and running Fluent-based simulation workflows across local, mock and HPC environments.</p>
-          <a href="https://github.com/lehmoans/manasimulations" target="_blank" rel="noopener">View project ↗</a>
-        </article>
+      <div class="project-list">
+        <details class="project" open>
+          <summary>
+            <span class="project-index">01</span>
+            <span class="project-title">
+              <strong>CFD of Blood in an Artificial Heart</strong>
+              <small>Monash Heart Hack · Jan 2024 – Dec 2025</small>
+            </span>
+            <span class="summary-mark">+</span>
+          </summary>
 
-        <article class="card">
-          <div class="number">02</div>
-          <h3>Computational Fluid Dynamics</h3>
-          <p>Numerical investigation of fluid systems, with an emphasis on governing equations, finite-volume methods, verification and experimental validation.</p>
-          <span class="muted">In development</span>
-        </article>
+          <div class="project-body">
+            <p class="lead">
+              Using CFD to simulate and derive characteristics of blood in an artificial heart.
+            </p>
 
-        <article class="card">
-          <div class="number">03</div>
-          <h3>Multiphysics Simulation</h3>
-          <p>Exploring coupled fluid–structure systems and the numerical methods required to model interactions between physical domains.</p>
-          <span class="muted">Research interests</span>
+            <div class="subproject">
+              <div class="subproject-heading">
+                <span class="tag">01A</span>
+                <h3>Rotary Heart Pump · 2024</h3>
+              </div>
+
+              <div class="grid-2">
+                <div>
+                  <h4>Work</h4>
+                  <p>
+                    Conducted CFD analysis of heart designs submitted to the 2024
+                    Heart Hack Competition. The team was invited to present its
+                    results at the grand final in Japan and won “Best Business Plan”.
+                  </p>
+                  <p>
+                    The simulation work produced varied results and highlighted
+                    the need for further research and verification of CFD techniques.
+                  </p>
+                </div>
+
+                <div>
+                  <h4>General ANSYS Fluent method</h4>
+                  <ul>
+                    <li><b>Meshing:</b> fluid region divided into a fine rotational region near the pump blades and a mid-to-coarse stationary region near the pump walls.</li>
+                    <li><b>Material:</b> blood approximated using a power-law model.</li>
+                    <li><b>Model:</b> steady-state flow approximated using k-ω SST.</li>
+                    <li><b>Motion:</b> angular velocities applied at the rotational-region walls.</li>
+                  </ul>
+                </div>
+              </div>
+
+              <div class="project-note">
+                <span>Key limitation</span>
+                The steady moving-rotor formulation does not holistically represent
+                the cardiac performance of a mechanical heart.
+              </div>
+
+              <div class="grid-2">
+                <div>
+                  <h4>Further modelling interests</h4>
+                  <ul>
+                    <li>Blood rheology, particularly at low Reynolds numbers.</li>
+                    <li>Greater understanding of the steady-state model rather than treating it as a black box.</li>
+                    <li>Transient modelling for more realistic mechanical-heart performance.</li>
+                    <li>Numerical approximation models relevant to CFD verification.</li>
+                  </ul>
+                </div>
+                <div>
+                  <h4>Validation challenge</h4>
+                  <p>
+                    Large discrepancies were observed between simulation data and
+                    experimental results. Model assumptions and inaccuracies are
+                    therefore a major area for further refinement.
+                  </p>
+                </div>
+              </div>
+            </div>
+
+            <div class="subproject">
+              <div class="subproject-heading">
+                <span class="tag">01B</span>
+                <h3>Pulsatile Heart Pump · 2025</h3>
+              </div>
+
+              <div class="grid-2">
+                <div>
+                  <h4>Work</h4>
+                  <p>
+                    Researched and conducted Fluid Structure Interaction (FSI)
+                    simulations using ANSYS Workbench and successfully simulated
+                    small-deformation coupled systems.
+                  </p>
+                </div>
+                <div>
+                  <h4>Technical challenge</h4>
+                  <p>
+                    The team underestimated the complexity of FSI because the
+                    fluid and structural domains require different simulation
+                    techniques. I was responsible for the design of the simulation method.
+                  </p>
+                </div>
+              </div>
+
+              <div class="project-note warning">
+                <span>Large-deformation limitation</span>
+                The required design deformation could not be simulated reliably.
+                The FEA component produced errors when the material needed to
+                elastically deform up to approximately 80%.
+              </div>
+
+              <div class="grid-2">
+                <div>
+                  <h4>Investigated causes</h4>
+                  <ul>
+                    <li>Hyperelastic material limitations.</li>
+                    <li>Incorrect or unsuitable mesh settings.</li>
+                  </ul>
+                </div>
+                <div>
+                  <h4>Approaches investigated</h4>
+                  <ul>
+                    <li>UDF-based methods, with significant implementation complexity.</li>
+                    <li>Approximating the 3D membrane as a surface, which introduced additional meshing problems.</li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+
+            <div class="project-links">
+              <a href="https://tinyurl.com/ysvwvvh9" target="_blank" rel="noopener">Portfolio reference / report ↗</a>
+              <a href="https://github.com/lehmoans" target="_blank" rel="noopener">GitHub ↗</a>
+            </div>
+          </div>
+        </details>
+
+        <details class="project">
+          <summary>
+            <span class="project-index">02</span>
+            <span class="project-title">
+              <strong>Dynamic System Simulation & High-Mach CFD</strong>
+              <small>Monash High Power Rocketry · 2020 – 2023</small>
+            </span>
+            <span class="summary-mark">+</span>
+          </summary>
+
+          <div class="project-body">
+            <p class="lead">
+              Simulation work focused on rocket behaviour at high Mach-number velocities.
+            </p>
+
+            <div class="grid-2">
+              <div>
+                <h4>Role</h4>
+                <p>
+                  Joined the Dynamics Simulations Team, contributing to the
+                  computational modelling of rocket behaviour at high Mach numbers.
+                </p>
+              </div>
+              <div>
+                <h4>Capabilities developed</h4>
+                <ul>
+                  <li>Python programming, self-taught through the project.</li>
+                  <li>ANSYS Fluent meshing and solution work, developed independently.</li>
+                  <li>Understanding of how CFD results can feed larger dynamic-system models.</li>
+                </ul>
+              </div>
+            </div>
+
+            <div class="project-note">
+              <span>System integration</span>
+              Contributed to the team-built six-degree-of-freedom rocket simulator,
+              which uses CFD results to determine characteristics such as time of
+              flight and apogee.
+            </div>
+          </div>
+        </details>
+
+        <details class="project">
+          <summary>
+            <span class="project-index">03</span>
+            <span class="project-title">
+              <strong>CFD Automation & Simulation Infrastructure</strong>
+              <small>Python · ANSYS Fluent · Local / Mock / HPC workflows</small>
+            </span>
+            <span class="summary-mark">+</span>
+          </summary>
+
+          <div class="project-body">
+            <p class="lead">
+              Extending hands-on CFD work into reusable software for automating
+              simulation setup, execution and repeatable engineering workflows.
+            </p>
+
+            <div class="grid-2">
+              <div>
+                <h4>Motivation</h4>
+                <p>
+                  Manual CFD setup and maintenance can make model fine-tuning
+                  expensive. Automation is being developed to reduce repetitive
+                  work and accelerate iteration.
+                </p>
+              </div>
+              <div>
+                <h4>Targeted iteration</h4>
+                <ul>
+                  <li>y+ target selection.</li>
+                  <li>Mesh refinement and coarsening.</li>
+                  <li>Fluid rheology characteristics.</li>
+                  <li>Repeatable configuration and execution.</li>
+                </ul>
+              </div>
+            </div>
+
+            <div class="project-callout">
+              <div>
+                <span class="eyebrow">FEATURED SOFTWARE PROJECT</span>
+                <h3>AutoFluent</h3>
+                <p>
+                  A modular Python framework for configuration-driven Fluent
+                  simulation workflows. It is being developed as a reusable
+                  simulation infrastructure project rather than a single-case script.
+                </p>
+              </div>
+              <a class="button primary" href="autofluent.html">Technical documentation ↗</a>
+            </div>
+          </div>
+        </details>
+      </div>
+    </section>
+
+    <section id="research" class="section">
+      <div class="section-heading">
+        <p class="eyebrow">RESEARCH DIRECTION</p>
+        <h2>From physical systems to computational models.</h2>
+      </div>
+
+      <div class="research-grid">
+        <article>
+          <span class="tag">CFD</span>
+          <h3>Fluid mechanics</h3>
+          <p>Flow modelling, meshing, turbulence models, rheology and the relationship between numerical assumptions and physical behaviour.</p>
+        </article>
+        <article>
+          <span class="tag">FSI</span>
+          <h3>Multiphysics</h3>
+          <p>Coupled fluid–structure systems, deformation, material behaviour and the numerical challenges created by interacting physical domains.</p>
+        </article>
+        <article>
+          <span class="tag">NUMERICS</span>
+          <h3>Verification & validation</h3>
+          <p>Connecting governing equations, numerical approximations, simulation results and experimental evidence.</p>
+        </article>
+        <article>
+          <span class="tag">SOFTWARE</span>
+          <h3>Simulation automation</h3>
+          <p>Configuration-driven engineering software that makes simulation workflows reproducible, testable and easier to iterate.</p>
         </article>
       </div>
     </section>
@@ -68,22 +310,28 @@
       </div>
       <div class="about-text">
         <p>
-          My interests sit at the intersection of engineering, computation and
-          natural systems. I use mathematical models and software to investigate
-          how physical systems behave and to build tools that make simulation
-          workflows more accessible and reproducible.
+          I have a strong interest in the natural sciences and a long-term goal
+          of working with simulations of natural systems and processes. CFD is
+          particularly useful to this direction because it provides a way to
+          connect physical principles, mathematics and computation.
         </p>
         <p>
-          Current interests include CFD, finite-element analysis, numerical
-          methods, control systems, biological systems and simulation automation.
+          My project work has moved from hands-on CFD and high-speed flow
+          simulation toward coupled multiphysics and simulation automation.
+          I am particularly interested in understanding the assumptions behind
+          models, identifying where simulations fail, and building better
+          computational workflows around them.
         </p>
       </div>
     </section>
   </main>
 
   <footer>
-    <p>© 2026 Sailo Simadanawa</p>
-    <a href="https://github.com/lehmoans" target="_blank" rel="noopener">github.com/lehmoans ↗</a>
+    <p>© 2026 Sailosi Madanawa</p>
+    <div class="footer-links">
+      <a href="autofluent.html">AutoFluent</a>
+      <a href="https://github.com/lehmoans" target="_blank" rel="noopener">github.com/lehmoans ↗</a>
+    </div>
   </footer>
 </body>
 </html>
